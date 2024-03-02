@@ -20,8 +20,8 @@ public class UserModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID userId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
 
     @Column(nullable = false, unique = true, length = 50)
     private String username;

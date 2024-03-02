@@ -2,7 +2,6 @@ package com.ead.authuser.controllers;
 
 import com.ead.authuser.models.UserModel;
 import com.ead.authuser.services.UserService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +25,10 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<Object> getOnerUser(@PathVariable(value = "userId") UUID userId) {
-        Optional<UserModel> userModelOptional = this.userService.findById(userId);
+    public ResponseEntity<Object> getOneUser(@PathVariable(value = "userId") Long userId) {
+        Optional<UserModel> userModelOptional = userService.findById(userId);
 
-        if(!userModelOptional.isPresent()) {
+        if (!userModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(userModelOptional.get());
@@ -37,8 +36,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Object> deleteUser(@PathVariable(value = "userId") UUID userId) {
+    public ResponseEntity<Object> deleteUser(@PathVariable(value = "userId") Long userId) {
         Optional<UserModel> userModelOptional = userService.findById(userId);
+
         if (!userModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         } else {
